@@ -19,7 +19,14 @@ const config: Config = {
     require("daisyui")
   ],
   daisyui: {
-    themes: false, // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
+    themes: [
+      {
+        default: {
+          "primary": "#24ece6",
+          "primary-content": "#175a62"
+        }
+      }
+    ],
     darkTheme: "light", // name of one of the included themes for dark mode
   },
 }
