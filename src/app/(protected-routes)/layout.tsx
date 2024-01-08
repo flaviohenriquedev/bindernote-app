@@ -7,7 +7,9 @@ export default function ProtectedRouteLayout({children}: { children: React.React
     return (
         <AppLayout.Container>
             <AppLayout.Header/>
-            {children}
+            <AppLayout.Content>
+                {children}
+            </AppLayout.Content>
         </AppLayout.Container>
     )
 }
