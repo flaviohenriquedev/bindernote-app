@@ -1,9 +1,9 @@
 'use client'
 
-import { LuFileSpreadsheet } from "react-icons/lu";
-import { MdOutlineTopic } from "react-icons/md";
+import {LuFileSpreadsheet} from "react-icons/lu";
+import {MdOutlineTopic} from "react-icons/md";
 
-import {useEffect, useState} from "react";
+import {useState} from "react";
 
 type TopicType = {
     id: number,
@@ -61,6 +61,7 @@ const sheetsData: SheetType[] = [
 export default function NotebooksEditorPage({ params }: { params: { notebookId: number } }) {
     const [sheets, setSheets] = useState<SheetType[]>([])
     const [topicSelected, setTopicSelected] = useState<TopicType>()
+    const [renderSheetList, setRenderSheetList] = useState<boolean>(false)
 
     function renderTopics() {
         return topics.map(topic => {
@@ -77,6 +78,7 @@ export default function NotebooksEditorPage({ params }: { params: { notebookId: 
 
     function selectSheets(topic: TopicType) {
         setTopicSelected(topic)
+        setRenderSheetList(true)
         const sheetsFiltered = sheetsData.filter(s => s.idTopic === topic.id)
         if (sheetsFiltered) {
             setSheets(sheetsFiltered)
@@ -90,20 +92,25 @@ export default function NotebooksEditorPage({ params }: { params: { notebookId: 
                     {renderTopics()}
                 </ul>
             </aside>
-            <aside className={`w-52 h-full p-4 bg-green-300`}>
+            {renderSheetList && (
+                <aside className={`w-52 h-full p-4 bg-green-300`}>
+                    <ul className={`flex flex-col text-[0.8rem] gap-1`}>
+                        <div className={`flex items-center justify-between`}>
+                            <label>{topicSelected?.label}</label>
+                            <label onClick={() => setRenderSheetList(false)} className={`hover:cursor-pointer`}>X</label>
+                        </div>
 
-                <ul className={`flex flex-col text-[0.8rem] gap-1`}>
-                    <label>{topicSelected?.label}</label>
-                    {sheets && sheets.map(sheet => (
-                        <li key={sheet.id} className={`hover:cursor-pointer hover:bg-slate-200`}>
-                            <div className={`flex items-center gap-2`}>
-                                <LuFileSpreadsheet/>
-                                <span>{sheet.label}</span>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-            </aside>
+                        {sheets && sheets.map(sheet => (
+                            <li key={sheet.id} className={`hover:cursor-pointer hover:bg-slate-200`}>
+                                <div className={`flex items-center gap-2`}>
+                                    <LuFileSpreadsheet/>
+                                    <span>{sheet.label}</span>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </aside>
+            )}
             <div className={`w-full h-full bg-red-300`}>
                 <h1>{params.notebookId}</h1>
             </div>
