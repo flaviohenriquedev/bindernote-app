@@ -64,14 +64,14 @@ export function PageLayoutSidebar({topics} : Props) {
     }
 
     return(
-        <div className={`flex pt-2 h-full`}>
-            <aside className={`w-52 h-full p-4 bg-blue-300`}>
-                <ul className={`flex flex-col text-[0.8rem] gap-1`}>
+        <div className={` flex h-full`}>
+            <aside className={`w-52 h-full p-4 bg-blue-300 overflow-y-scroll`}>
+                <ul className={`flex flex-col text-[0.8rem] gap-1 pb-10`}>
                     {renderTopics()}
                 </ul>
             </aside>
             {renderSheetList && (
-                <aside className={`w-52 h-full p-4 bg-green-300`}>
+                <aside className={`w-52 h-full p-4 bg-green-300  overflow-y-scroll`}>
                     <ul className={`flex flex-col text-[0.8rem] gap-1`}>
                         <div className={`flex items-center justify-between`}>
                             <label>{topicSelected?.label}</label>
