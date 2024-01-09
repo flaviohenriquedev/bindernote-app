@@ -6,5 +6,6 @@ export type TopicType = {
 export type SheetType = {
     id: number,
     idTopic: number,
-    label: string
+    label: string,
+    content?: string
 }
